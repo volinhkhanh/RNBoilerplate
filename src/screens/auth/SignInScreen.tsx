@@ -33,7 +33,7 @@ export const SignInScreen: FC<{}> = ({navigation}: any) => {
       <Logo />
       <Header text={'Hello'} />
       <TextInput
-        label="Email"
+        placeholder="Email"
         returnKeyType="next"
         value={email.value}
         onChangeText={text => setEmail({value: text, error: ''})}
@@ -45,7 +45,7 @@ export const SignInScreen: FC<{}> = ({navigation}: any) => {
         keyboardType="email-address"
       />
       <TextInput
-        label="Password"
+        placeholder="Password"
         returnKeyType="done"
         value={password.value}
         onChangeText={text => setPassword({value: text, error: ''})}
@@ -60,7 +60,7 @@ export const SignInScreen: FC<{}> = ({navigation}: any) => {
         </TouchableOpacity>
       </View>
       <Button mode="contained" onPress={onLoginPressed}>
-        Login
+        <Text>Login</Text>
       </Button>
       <View style={styles.row}>
         <Text>Don’t have an account? </Text>
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
   },
   forgot: {
     fontSize: 13,
-    color: 'gray',
   },
   link: {
     fontWeight: 'bold',

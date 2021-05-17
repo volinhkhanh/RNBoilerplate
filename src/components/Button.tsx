@@ -15,11 +15,15 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     marginVertical: 10,
-    paddingVertical: 2,
+    paddingVertical: 10,
+    backgroundColor: 'green',
+    alignItems: 'center',
+    borderRadius: 10,
   },
   text: {
     fontWeight: 'bold',
     fontSize: 15,
     lineHeight: 26,
+    color: 'black',
   },
 });

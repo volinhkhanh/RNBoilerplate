@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   input: {
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
     borderColor: 'gray',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
   description: {
     fontSize: 13,
