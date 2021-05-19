@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 
 const HomeScreen: FC<{}> = () => {
   return (
     <View>
-      <Text>fsfsfsfsf</Text>
+      <Text>Home Screen</Text>
     </View>
   );
 };
