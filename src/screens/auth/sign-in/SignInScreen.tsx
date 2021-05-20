@@ -23,10 +23,6 @@ export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
   const [password, setPassword] = useState({value: '', error: ''});
 
   const onPressSignIn = async () => {
-    await postSignIn({
-      username: email,
-      password: password,
-    });
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
     if (emailError || passwordError) {
@@ -34,15 +30,38 @@ export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
       setPassword({...password, error: passwordError});
       return;
     }
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Dashboard'}],
+    const data = await postSignIn({
+      username: email,
+      password: password,
     });
+    if (data) {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeScreen'}],
+      });
+      return;
+    }
   };
   const {t, i18n} = useTranslation();
 
   return (
     <Background>
+      <View style={styles.changeLanguageContent}>
+        <Text
+          style={styles.languageItem}
+          onPress={() => {
+            i18n.changeLanguage('en');
+          }}>
+          English
+        </Text>
+        <Text
+          style={styles.languageItem}
+          onPress={() => {
+            i18n.changeLanguage('vi');
+          }}>
+          Tiếng Việt
+        </Text>
+      </View>
       <Logo />
       <TextInput
         placeholder={t('Email')}
@@ -74,8 +93,7 @@ export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
       <Button
         mode="contained"
         onPress={() => {
-          i18n.changeLanguage('vi');
-          // onPressSignIn();
+          onPressSignIn();
         }}>
         <Text>{t('Login')}</Text>
       </Button>
@@ -90,6 +108,15 @@ export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  changeLanguageContent: {
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 20,
+    right: 0,
+  },
+  languageItem: {
+    padding: 5,
+  },
   forgotPassword: {
     width: '100%',
     alignItems: 'flex-end',
