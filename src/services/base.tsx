@@ -3,26 +3,27 @@ import {View} from 'react-native';
 import axios from 'axios';
 import {useSetRecoilState} from 'recoil';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {errorCodeState} from '../recoil/atoms';
+import {errorCodeState, loadingState} from '../recoil/atoms';
 
-const baseUrl = 'https://xxx';
+const baseUrl = 'https://reqres.in';
 
 export interface AxiosProps {
   children: ReactNode;
 }
 
 export const instance = axios.create({
-  baseURL: `${baseUrl}/api/v1/`,
+  baseURL: `${baseUrl}/api/`,
   timeout: 5000,
 });
 
 export const AxiosProvider = ({children}: AxiosProps) => {
   const errorCode = useSetRecoilState(errorCodeState);
+  const loading = useSetRecoilState(loadingState);
   instance.interceptors.request.use(
     async config => {
-      const token = await AsyncStorage.getItem('@token');
-      const tokenType = await AsyncStorage.getItem('@token_type');
-      config.headers.Authorization = token ? `${tokenType} ${token}` : null;
+      loading(true);
+      const token = await AsyncStorage.getItem('token');
+      config.headers.Authorization = token ? `Bearer ${token}` : null;
       return config;
     },
     error => {
@@ -35,6 +36,7 @@ export const AxiosProvider = ({children}: AxiosProps) => {
       // console.log(response)
       if (response?.status >= 200 && response?.status <= 299) {
         errorCode(0);
+        loading(false);
         if (response?.data === '') {
           return true;
         }

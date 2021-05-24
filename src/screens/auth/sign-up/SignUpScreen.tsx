@@ -30,11 +30,6 @@ export const SignUpScreen: FC<{}> = ({navigation}: any) => {
   const [password, setPassword] = useState({value: '', error: ''});
 
   const onSignUpPressed = async () => {
-    await postSignUp({
-      name: name,
-      username: email,
-      password: password,
-    });
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -44,10 +39,17 @@ export const SignUpScreen: FC<{}> = ({navigation}: any) => {
       setPassword({...password, error: passwordError});
       return;
     }
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Home'}],
+    const data = await postSignUp({
+      name: name,
+      username: email,
+      password: password,
     });
+    if (data) {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
+    }
   };
   const {t} = useTranslation();
   return (
@@ -84,8 +86,13 @@ export const SignUpScreen: FC<{}> = ({navigation}: any) => {
         secureTextEntry
       />
       <TouchableWithoutFeedback onPress={handleOpenCalendar}>
-        {/* <TextInput placeholder="Date" value={date} editable={false} /> */}
-        <Text>{date && moment(date).format('DD/MM/YYYY')} Select Date</Text>
+        <View style={styles.selectCalendar}>
+          {!date ? (
+            <Text>Select Date</Text>
+          ) : (
+            <Text>{moment(date).format('DD/MM/YYYY')}</Text>
+          )}
+        </View>
       </TouchableWithoutFeedback>
       <Button
         mode="contained"
@@ -111,5 +118,15 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: 'bold',
     color: 'gray',
+  },
+  selectCalendar: {
+    marginTop: 10,
+    backgroundColor: 'white',
+    height: 40,
+    width: '100%',
+    justifyContent: 'center',
+    textAlign: 'center',
+    borderRadius: 10,
+    paddingLeft: 16,
   },
 });

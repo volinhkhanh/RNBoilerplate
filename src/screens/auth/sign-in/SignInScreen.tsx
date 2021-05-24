@@ -1,6 +1,7 @@
 import React, {FC, useState} from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {useSetRecoilState} from 'recoil';
 
 import Background from '../../../components/Background';
 import Logo from '../../../components/Logo';
@@ -12,6 +13,8 @@ import {passwordValidator} from '../../../helpers/passwordValidator';
 
 import {postSignIn} from '../../../services';
 
+import {userDataState} from '../../../recoil/atoms';
+
 interface SignInView {
   onPressSignIn: () => void;
   email: string;
@@ -19,8 +22,9 @@ interface SignInView {
 }
 
 export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
-  const [email, setEmail] = useState({value: '', error: ''});
-  const [password, setPassword] = useState({value: '', error: ''});
+  const [email, setEmail] = useState({value: 'eve.holt@reqres.in', error: ''});
+  const [password, setPassword] = useState({value: 'cityslicka', error: ''});
+  const userData = useSetRecoilState(userDataState);
 
   const onPressSignIn = async () => {
     const emailError = emailValidator(email.value);
@@ -31,14 +35,12 @@ export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
       return;
     }
     const data = await postSignIn({
-      username: email,
-      password: password,
+      email: email?.value,
+      password: password?.value,
     });
     if (data) {
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'HomeScreen'}],
-      });
+      userData(data?.user);
+      navigation.navigate('AppStack');
       return;
     }
   };

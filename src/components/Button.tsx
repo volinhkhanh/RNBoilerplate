@@ -1,9 +1,9 @@
 import React from 'react';
-import {StyleSheet, Pressable} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 
 export default function Button({style, ...props}: any) {
   return (
-    <Pressable
+    <TouchableOpacity
       style={[styles.button, style]}
       labelStyle={styles.text}
       {...props}

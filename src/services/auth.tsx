@@ -1,25 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {instance} from './base';
-import {useSetRecoilState} from 'recoil';
-import {userDataState} from '../recoil/atoms';
 
 export interface dataSignIn {
-  token_type: String;
-  access_token: String;
-  refresh_token: String;
-  user: Object;
+  token: String;
 }
 
 export const postSignIn = async (params: Object) => {
-  const userData = useSetRecoilState(userDataState);
-  const data: dataSignIn = await instance.post('signin', params);
+  const data = await instance.post('login', params);
   if (data) {
-    const tokenTypePair = ['@token_type', data?.token_type];
-    const tokenPair = ['@token', data?.access_token];
-    const refreshTokenPair = ['@refresh_token', data?.refresh_token];
-    await AsyncStorage.multiSet([tokenTypePair, tokenPair, refreshTokenPair]);
-    userData(data.user);
-    return true;
+    const token = ['token', data?.token];
+    await AsyncStorage.setItem('token', token);
+    return data;
   } else {
     return false;
   }
