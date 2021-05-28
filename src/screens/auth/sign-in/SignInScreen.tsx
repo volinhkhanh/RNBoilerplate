@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {useSetRecoilState} from 'recoil';
 
@@ -14,6 +14,8 @@ import {passwordValidator} from '../../../helpers/passwordValidator';
 import {postSignIn} from '../../../services';
 
 import {userDataState} from '../../../recoil/atoms';
+
+import {styles} from './styles';
 
 interface SignInView {
   onPressSignIn: () => void;
@@ -108,31 +110,3 @@ export const SignInScreen: FC<SignInView> = ({navigation}: any) => {
     </Background>
   );
 };
-
-const styles = StyleSheet.create({
-  changeLanguageContent: {
-    flexDirection: 'row',
-    position: 'absolute',
-    top: 20,
-    right: 0,
-  },
-  languageItem: {
-    padding: 5,
-  },
-  forgotPassword: {
-    width: '100%',
-    alignItems: 'flex-end',
-    marginBottom: 24,
-  },
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
-  },
-  forgot: {
-    fontSize: 13,
-  },
-  link: {
-    fontWeight: 'bold',
-    color: 'gray',
-  },
-});

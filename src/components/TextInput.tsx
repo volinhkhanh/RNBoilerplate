@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput as Input} from 'react-native';
+import {View, Text, TextInput as Input} from 'react-native';
+
+import {create} from '../utils/normalize';
 
 export default function TextInput({errorText, description, ...props}: any) {
   return (
@@ -13,7 +15,7 @@ export default function TextInput({errorText, description, ...props}: any) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = create({
   container: {
     width: '100%',
     marginVertical: 12,

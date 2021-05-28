@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {Text} from 'react-native';
+
+import {create} from '../utils/normalize';
 
 export default function Paragraph() {
   return <Text style={styles.text} />;
 }
 
-const styles = StyleSheet.create({
+const styles = create({
   text: {
     fontSize: 15,
     lineHeight: 21,

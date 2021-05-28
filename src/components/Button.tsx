@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+
+import {create} from '../utils/normalize';
 
 export default function Button({style, ...props}: any) {
   return (
@@ -11,7 +13,7 @@ export default function Button({style, ...props}: any) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = create({
   button: {
     width: '100%',
     marginVertical: 10,

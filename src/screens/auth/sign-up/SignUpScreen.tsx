@@ -1,7 +1,6 @@
 import React, {useState, FC} from 'react';
 import {
   View,
-  StyleSheet,
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
@@ -22,6 +21,8 @@ import {nameValidator} from '../../../helpers/nameValidator';
 import {postSignUp} from '../../../services';
 
 import {useCalendar} from '../../../hooks/useCalendar';
+
+import {styles} from './styles';
 
 export const SignUpScreen: FC<{}> = ({navigation}: any) => {
   const {calendarStart: date, handleOpen: handleOpenCalendar} = useCalendar();
@@ -109,24 +110,3 @@ export const SignUpScreen: FC<{}> = ({navigation}: any) => {
     </Background>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
-  },
-  link: {
-    fontWeight: 'bold',
-    color: 'gray',
-  },
-  selectCalendar: {
-    marginTop: 10,
-    backgroundColor: 'white',
-    height: 40,
-    width: '100%',
-    justifyContent: 'center',
-    textAlign: 'center',
-    borderRadius: 10,
-    paddingLeft: 16,
-  },
-});
