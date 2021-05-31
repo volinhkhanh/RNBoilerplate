@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, KeyboardAvoidingView} from 'react-native';
+import {ImageBackground, KeyboardAvoidingView, ScrollView} from 'react-native';
 
 import ImageAssets from '../assets/images';
 
@@ -7,14 +7,16 @@ import {create} from '../utils/normalize';
 
 export default function Background({children}: any) {
   return (
-    <ImageBackground
-      source={ImageAssets.background_dot}
-      resizeMode="repeat"
-      style={styles.background}>
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        {children}
-      </KeyboardAvoidingView>
-    </ImageBackground>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <ImageBackground
+        source={ImageAssets.background_dot}
+        resizeMode="repeat"
+        style={styles.background}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          {children}
+        </KeyboardAvoidingView>
+      </ImageBackground>
+    </ScrollView>
   );
 }
 
