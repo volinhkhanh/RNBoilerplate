@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {ImageBackground, KeyboardAvoidingView} from 'react-native';
 
 import ImageAssets from '../assets/images';
 
